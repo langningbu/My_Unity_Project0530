@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人项目展示页</title>
+    <style>
+        /* 极其基础的样式，仅为了保证字号舒适、居中，绝不花哨 */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        h1, h2 {
+            color: #111;
+        }
+
+        video {
+            max-width: 100%;
+            height: auto;
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>我的个人项目展示</h1>
+    </header>
+
+    <section>
+        <h2>在 Unity 中搭建一个简单场景，导入一个人物模型，实现基础的动画播放和镜头控制。</h2>
+        <h3>1.个人介绍</h3>
+        <p>
+            我是 <strong>卜朗宁</strong>。目前正在初步学习Unity的使用，数字人与三维建模。
+        </p>
+        <p>
+            <strong>我对这个项目感兴趣的原因：</strong><br>
+            我对这个项目感兴趣是因为它解决了一个实际的痛点，而且里面的3D建模是我一直想深入实践的。希望能通过这个项目提升自己的动手能力。用数字人技术搭建沟通桥梁，帮听障朋友打破交流壁垒贡献力量自己的力量。
+        </p>
+    </section>
+
+    <section>
+        <h3>2. Demo 演示视频</h3>
+        <video controls width="720">
+            <source src="demo.mp4" type="video/mp4">
+            你的浏览器不支持视频播放，请升级浏览器。
+        </video>
+        <p style="font-size: 0.9em; color: #666;">（注：若视频无法播放，请检查视频路径是否正确，或尝试直接刷新页面）</p>
+    </section>
+
+    <section>
+        <h3>3. 简要说明技术方案和实现思路</h3>
+        <p>
+            本项目的核心思路与实现技术如下：
+        </p>
+        <ul>
+            <li><strong>骨骼架构与角色网格绑定：</strong> 角色的 3D 模型是由网格（Mesh）和骨骼（Skeleton/Rig）组成的。层次结构（Hierarchy）中的 metarig 或 rig 定义了角色的关节树状结构。网格的顶点通过蒙皮（Skinning）技术与这些骨骼绑定。当骨骼的角度或位置发生改变时，对应的角色皮肤网格就会随之拉伸和变形，从而形成动作。</li>
+            <li><strong>反向动力学（IK）的引入：</strong> 传统的动画通常使用正向动力学，即需要手动旋转肩膀、再旋转手肘来带动右手。而我使用了 Unity 的 Animation Rigging 包，采用了反向动力学。在层次结构中可以看到 RightHandTarget，系统就会自动计算出肩膀和手肘应该弯曲到什么角度。TwoBoneIKConstraint正是负责约束和计算“肩-肘-手腕”这两段骨骼运动轨迹的数学核心。</li>
+            <li><strong>通过脚本控制目标点位移：</strong> 由于 IK 约束的存在，当目标点在空中左右晃动时，角色的右手就会被迫跟随其轨迹移动，进而带动小臂和大臂随之摆动，最终在场景中呈现出自然、连续的“挥手”效果。</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p> 2026 卜朗宁</p>
+    </footer>
+
+</body>
+</html>
